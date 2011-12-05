@@ -49,86 +49,81 @@ Whitelist (unimplemented)
 Whitelist is a list of players which have even higher priority than clan members. During live balancing, if a player is in the whitelist, he is skipped. If at the end of the live balancing, the teams are still unbalanced, then the whitelist is ignored, and the live balancing logic is re-applied.
 
 Settings 
-[*]balance_threshold
-(integer > 0) - maximum difference in team sizes before teams are considered unbalanced 
-Technically, no team will ever be bigger by more than the balance_threshold
+ - balance_threshold (integer > 0)
+   maximum difference in team sizes before teams are considered unbalanced. Technically, no team will ever be bigger by more than the balance_threshold
 
-[*]live_interval_time
-(integer > 0) - interval number of seconds at which team balance is checked during game 
+ - live_interval_time (integer > 0) 
+   interval number of seconds at which team balance is checked during game 
 
-[*]round_interval
-(integer > 0) - interval number number of rounds at which the round balancer is applied 
-For example, if map Atacama has 6 rounds, and the value of round_interval is 2, then the round
-balancer is run at the end of rounds 2, 4, and 6. 
+ - round_interval (integer > 0)
+   interval number number of rounds at which the round balancer is applied. For example, if map Atacama has 6 rounds, and the value of round_interval is 2, then the round
+   balancer is run at the end of rounds 2, 4, and 6. 
 
-[*]keep_squads
-true - squads are preseved when balancing 
-false - squads are intentionally broken up before balancing starts
+ - keep_squads (true|false)
+   true - squads are preseved when balancing 
+   false - squads are intentionally broken up before balancing starts
 
-This setting only applies tot he round-end balancer.
+ - keep_clans (true|false)
+   This setting only applies to the round-end balancer.
+   true - players with same clan tags are kept on the same team 
+   false - clan tags are ignored during balancing
 
-[*]keep_clans
-true - players with same clan tags are kept on the same team 
-false - clan tags are ignored during balancing
+ - warn_yell (true|false)
+   true - yell the auto-balancer warning 
+   false - do not yell the auto-balancer warning 
 
-[*]warn_yell
-true - yell the auto-balancer warning 
-false - do not yell the auto-balancer warning 
+ - warn_say (true|false)
+   true - send auto-balancer warning in chat 
+   false - do not yell the auto-balancer warning in chat 
 
-[*]warn_say
-true - send auto-balancer warning in chat 
-false - do not yell the auto-balancer warning in chat 
+ - balance_round (true|false)
+   true - enables the end of round balancer
+   false - disabled the end of round balancer 
 
-[*]balance_round
-true - enables the end of round balancer
-false - disabled the end of round balancer 
+ - balance_live
+   true - enables the live balancer
+   false - disables the live balancer 
 
-[*]balance_live
-true - enables the live balancer
-false - disables the live balancer 
+ - admin_list (string)
+   list of players who are allow to execute admin commands 
 
-[*]admin_list
-(string) - list of players who are allow to execute admin commands 
+ - round_sort (string) 
+   method used for sorting players and squads during end of round balancing 
 
-[*]round_sort
-(string) - method used for sorting players and squads during end of round balancing 
+ - live_sort (string) 
+   method used for sorting players and squads during live balancing 
 
-[*]live_sort
-(string) - method used for sorting players and squads during live balancing 
-
-[*]advanced_mode
-true - enables the advanced settings mode which displays extra undocumented plugin settings
-false - disables the advanced settings mode
+ - advanced_mode (true|false)
+   true - enables the advanced settings mode which displays extra undocumented plugin settings
+   false - disables the advanced settings mode
 
 Advanced Settings
-
 There are settings that are shown by enabling advanced_mode 
-[*]warn_msg_interval_time
-(integer > 0) - this is the interval time in seconds at which the balance warning will be sent 
-The value must be less than or equal to the warn_msg_total_time
 
-[*]warn_msg_total_time
-(integer > 0) - this is the total amount of time in seconds, that a warning message will be sent 
-Basically this is a grace period for players to fix themselves the teams before the live balancer kicks in.
+ - warn_msg_interval_time (integer > 0) 
+   this is the interval time in seconds at which the balance warning will be sent.
+   The value must be less than or equal to the warn_msg_total_time
 
-[*]warn_msg_display_time
-(integer >= 0) - this is the amount of time in seconds for how long the balancing warning is displayed. The value must be less than or equal to the warn_msg_total_time
+ - warn_msg_total_time (integer > 0) 
+   this is the total amount of time in seconds, that a warning message will be sent. Basically this is a grace period for players to fix themselves the teams before the live balancer kicks in.
 
-[*]warn_msg_countdown_time
-(integer >= 0) - this is the amount of time in seconds for the countdown at the end of the warning period. The value must be less than or equal to the warn_msg_total_time
+ - warn_msg_display_time (integer >= 0) 
+   this is the amount of time in seconds for how long the balancing warning is displayed. The value must be less than or equal to the warn_msg_total_time
 
-[*]auto_start
-true - enables auto start for live balancing checks
-false - disables the live balancer auto start, you will need to issue the !start check command
+ - warn_msg_countdown_time (integer >= 0)
+   this is the amount of time in seconds for the countdown at the end of the warning period. The value must be less than or equal to the warn_msg_total_time
 
-[*]warn_msg_countdown_time
-(integer >= 0 && <= 6) - this variable is for debug mode. When the value is zero, no debug information is printed on the plugin console. For medium debugging information you can set it to 3. The bigger the value, the more debugging details are printed. 
+ - auto_start (true|false)
+   true - enables auto start for live balancing checks
+   false - disables the live balancer auto start, you will need to issue the !start check command
+
+ - warn_msg_countdown_time (integer >= 0 && <= 6) 
+   this variable is for debug mode. When the value is zero, no debug information is printed on the plugin console. For medium debugging information you can set it to 3. The bigger the value, the more debugging details are printed. 
 
 Public In-Game Commands
-
 In-game commands are messages typed into the game chat box, which have special meaning to the plugin. Commands must start with one of the following characters: !,@, or /. This plugin interprets the following commands:
-!move
-This command can be used by regular players to move themselves to the opposite team as long as teams are balanced. 
+
+!move - This command can be used by regular players to move themselves to the opposite team as long as teams are balanced. 
 
 Admin In-Game Commands
 These are the commands that only soldiers in the ""admin_list"" are allowed to execute. Reply messages generated by admin commands are sent only to the admin who executed the command.
