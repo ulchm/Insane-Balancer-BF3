@@ -71,7 +71,8 @@ namespace PRoConEvents
             private HttpWebRequest req = null;
             private CookieContainer cookies = null;
             private InsaneBalancer plugin = null;
-            
+            WebClient client = null;
+
 
             public BattleLog(InsaneBalancer plugin)
             {
@@ -85,50 +86,12 @@ namespace PRoConEvents
             {
                 try
                 {
+    				if (client == null)
+					client = new WebClient();
 
-                    /*make the http request */
-                    req = (HttpWebRequest)WebRequest.Create(url);
+					html_data = client.DownloadString(url);
+					return html_data;
 
-
-                    req.CookieContainer = cookies;
-                    req.Method = "GET";
-                    req.KeepAlive = true;
-
-                    req.Timeout = 20*1000; 
-
-
-
-                    req.Accept = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
-                    req.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.2 (KHTML, like Gecko) Chrome/15.0.874.106 Safari/535.2";
-                    req.Referer = url;
-                    req.Headers = new WebHeaderCollection();
-                    req.Headers.Add("Accept-Charset:ISO-8859-1,utf-8;q=0.7,*;q=0.3");
-                    req.Headers.Add("Accept-Encoding:ISO-8859-1");
-                    req.Headers.Add("Accept-Language:en-US,en;q=0.8");
-                    req.Headers.Add("Cache-Control:max-age=0");
-                    req.Proxy = null;
-
-
-                    HttpWebResponse resp = (HttpWebResponse)req.GetResponse();
-
-                    if (resp == null)
-                        throw new StatsException("^1^bERROR^0^n: web-request failed");
-
-                    if (resp.StatusCode != HttpStatusCode.OK)
-                        throw new StatsException("^1^bERROR^0^n: web-request failed with HTTP/ " + resp.ProtocolVersion + " " + ((int)resp.StatusCode) + " " + resp.StatusDescription);
-
-
-                    Stream data = null;
-                    if ((data = resp.GetResponseStream()) == null)
-                        throw new StatsException("^1^bERROR^0^n: web-request failed, unable to get response data stream");
-
-                    StreamReader reader = null;
-                    if ((reader = new StreamReader(data)) == null)
-                        throw new StatsException("^1^bERROR^0^n: web-request failed, unable to read the response data stream");
-
-                    html_data = reader.ReadToEnd();
-                    data.Close();
-                    reader.Close();
 
                 }
                 catch (WebException e)
